@@ -1,7 +1,7 @@
-import React, { Component, ChangeEvent, FormEvent } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
+import React, { Component, ChangeEvent, FormEvent } from "react";
 
 import { Firebase, FirebaseSingleton } from "../Firebase";
 import { CHAT } from "../../constants/routes";
