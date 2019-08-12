@@ -40,6 +40,7 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
       .createUser(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
+        this.props.history.push(CHAT);
       })
       .catch(error => {
         this.setState({ error });
@@ -113,4 +114,4 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);
