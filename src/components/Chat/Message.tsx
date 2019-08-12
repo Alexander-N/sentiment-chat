@@ -15,11 +15,11 @@ class Message extends Component<MessageProps, MessageState> {
   render() {
     let emotion;
     const sentimentScore = this.props.sentiment;
-    if (sentimentScore < -0.33) {
+    if (sentimentScore < 0) {
       emotion = "☹️";
-    } else if (sentimentScore >= -0.33 && sentimentScore <= 0.33) {
+    } else if (sentimentScore === 0) {
       emotion = "😐";
-    } else if (sentimentScore > 0.33) {
+    } else if (sentimentScore > 0) {
       emotion = "😀";
     }
     return (
