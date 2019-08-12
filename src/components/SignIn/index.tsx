@@ -1,11 +1,11 @@
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps, Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 import React, { Component, ChangeEvent, FormEvent } from "react";
 
 import { Firebase, FirebaseSingleton } from "../Firebase";
 
-import { CHAT } from "../../constants/routes";
+import { CHAT, SIGN_UP } from "../../constants/routes";
 
 interface ComponentState {
   email: string;
@@ -51,30 +51,31 @@ class SignIn extends Component<RouteComponentProps, ComponentState> {
   render() {
     const { email, password, error } = this.state;
 
-    const isInvalid = password === "" || email === "";
-
     return (
-      <form onSubmit={this.onSubmit}>
-        <Input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <Input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <Button disabled={isInvalid} type="submit">
-          Sign In
-        </Button>
+      <div>
+        <form onSubmit={this.onSubmit}>
+          <Input
+            name="email"
+            value={email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email Address"
+          />
+          <Input
+            name="password"
+            value={password}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password"
+          />
+          <Button type="submit">Sign In</Button>
 
-        {error && <p>{error.message}</p>}
-      </form>
+          {error && <p>{error.message}</p>}
+        </form>
+        <p>
+          Don't have an account? <Link to={SIGN_UP}>Sign Up</Link>
+        </p>
+      </div>
     );
   }
 }

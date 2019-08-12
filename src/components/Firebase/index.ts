@@ -30,6 +30,10 @@ export class Firebase {
   signOut() {
     return this.auth.signOut();
   }
+
+  isUserSignedIn() {
+    return !!this.auth.currentUser;
+  }
 }
 
 export const FirebaseSingleton = new Firebase();
