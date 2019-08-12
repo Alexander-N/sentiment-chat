@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ChangeEvent, FormEvent } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
@@ -6,11 +6,12 @@ import Message, { MessageProps } from "./Message";
 
 interface ComponentState {
   messages: { [key: string]: MessageProps };
+  ownMessageText: string;
 }
 class Chat extends Component<any, ComponentState> {
   constructor(props: any) {
     super(props);
-    this.state = { messages: {} };
+    this.state = { messages: {}, ownMessageText: "" };
   }
   componentDidMount() {
     const query = firebase
@@ -31,6 +32,25 @@ class Chat extends Component<any, ComponentState> {
       }
     });
   }
+
+  onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({ ownMessageText: event.target.value });
+  };
+
+  onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    this.setState({ ownMessageText: "" });
+    event.preventDefault();
+    await firebase
+      .firestore()
+      .collection("messages")
+      .add({
+        text: this.state.ownMessageText,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .catch(function(error) {
+        console.error("Error writing new message to Firebase Database", error);
+      });
+  };
 
   render() {
     const messages = [];
@@ -72,10 +92,12 @@ class Chat extends Component<any, ComponentState> {
             >
               <div className="mdl-card__supporting-text mdl-color-text--grey-600">
                 <div id="messages">{messages}</div>
-                <form id="message-form" action="#">
+                <form onSubmit={this.onSubmit} id="message-form" action="#">
                   <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
                       className="mdl-textfield__input"
+                      value={this.state.ownMessageText}
+                      onChange={this.onChange}
                       type="text"
                       id="message"
                       autoComplete="off"
@@ -84,8 +106,8 @@ class Chat extends Component<any, ComponentState> {
                   </div>
                   <button
                     id="submit"
-                    disabled
                     type="submit"
+                    disabled={this.state.ownMessageText.length === 0}
                     className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
                   >
                     Send
