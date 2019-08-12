@@ -6,7 +6,6 @@ import * as ROUTES from "./constants/routes";
 import Chat from "./components/Chat";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
-import { FirebaseContext } from "./components/Firebase";
 
 const App = () => (
   <Router>
@@ -25,11 +24,7 @@ const App = () => (
     </div>
 
     <Route path={ROUTES.CHAT} component={Chat} />
-    <Route path={ROUTES.SIGN_UP}>
-      <FirebaseContext.Consumer>
-        {firebase => <SignUp firebase={firebase} />}
-      </FirebaseContext.Consumer>
-    </Route>
+    <Route path={ROUTES.SIGN_UP} component={SignUp} />
     <Route path={ROUTES.SIGN_IN} component={SignIn} />
   </Router>
 );

@@ -1,12 +1,11 @@
 import React, { Component, ChangeEvent, FormEvent } from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 
-import Firebase from "../Firebase";
+import { Firebase, FirebaseSingleton } from "../Firebase";
+import { CHAT } from "../../constants/routes";
 
-interface ComponentProps {
-  firebase: Firebase | null;
-}
 interface ComponentState {
   username: string;
   fullName: string;
@@ -25,17 +24,20 @@ const INITIAL_STATE: ComponentState = {
   error: null
 };
 
-class SignUp extends Component<ComponentProps, ComponentState> {
-  constructor(props: ComponentProps) {
+class SignUp extends Component<RouteComponentProps, ComponentState> {
+  firebase: Firebase;
+
+  constructor(props: RouteComponentProps) {
     super(props);
     this.state = { ...INITIAL_STATE };
+    this.firebase = FirebaseSingleton;
   }
 
   onSubmit = (event: FormEvent<HTMLFormElement>) => {
     const { username, fullName, email, passwordOne } = this.state;
 
-    this.props
-      .firebase!.createUser(email, passwordOne)
+    this.firebase
+      .createUser(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
       })
