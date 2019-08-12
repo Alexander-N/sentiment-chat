@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
+import Message, { MessageProps } from "./Message";
+
 interface ComponentState {
-  messages: { [key: string]: any };
+  messages: { [key: string]: MessageProps };
 }
 class Chat extends Component<any, ComponentState> {
   constructor(props: any) {
@@ -21,7 +23,10 @@ class Chat extends Component<any, ComponentState> {
       for (let change of snapshot.docChanges()) {
         const message = change.doc.data();
         this.setState(prevState => ({
-          messages: { ...prevState.messages, [change.doc.id]: message }
+          messages: {
+            ...prevState.messages,
+            [change.doc.id]: { ...message, id: change.doc.id } as MessageProps
+          }
         }));
       }
     });
@@ -29,8 +34,8 @@ class Chat extends Component<any, ComponentState> {
 
   render() {
     const messages = [];
-    for (const [key, value] of Object.entries(this.state.messages)) {
-      messages.push(<li key={key}>{value.text}</li>);
+    for (const [key, messageProps] of Object.entries(this.state.messages)) {
+      messages.push(<Message key={key} {...messageProps} />);
     }
 
     return (
