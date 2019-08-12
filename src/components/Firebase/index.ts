@@ -2,6 +2,7 @@ import app from "firebase/app";
 import "firebase/auth";
 
 const config = {
+  // Key is not confidential: https://stackoverflow.com/a/37484053
   apiKey: "AIzaSyA3yIioFEyQ2I5KHfkOZd3FOp9vUhg4mNM",
   authDomain: "sentiment-chat.firebaseapp.com",
   databaseURL: "https://sentiment-chat.firebaseio.com",
