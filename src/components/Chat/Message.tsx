@@ -11,15 +11,19 @@ export interface MessageProps {
 }
 interface MessageState {}
 
+const NEUTRAL_SCORE = 0.15;
 class Message extends Component<MessageProps, MessageState> {
   render() {
     let emotion;
     const sentimentScore = this.props.sentiment;
-    if (sentimentScore < 0) {
+    if (sentimentScore < -NEUTRAL_SCORE) {
       emotion = "☹️";
-    } else if (sentimentScore === 0) {
+    } else if (
+      sentimentScore >= -NEUTRAL_SCORE &&
+      sentimentScore <= NEUTRAL_SCORE
+    ) {
       emotion = "😐";
-    } else if (sentimentScore > 0) {
+    } else if (sentimentScore > NEUTRAL_SCORE) {
       emotion = "😀";
     }
     return (
