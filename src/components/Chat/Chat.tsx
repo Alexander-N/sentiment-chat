@@ -5,7 +5,9 @@ import "firebase/firestore";
 import Message, { MessageProps } from "./Message";
 import { AuthService } from "../Auth";
 
-interface ComponentProps {}
+interface ComponentProps {
+  user: any;
+}
 interface ComponentState {
   messages: { [key: string]: MessageProps };
   ownMessageText: string;
@@ -48,6 +50,7 @@ class Chat extends Component<ComponentProps, ComponentState> {
       .collection("messages")
       .add({
         text: this.state.ownMessageText,
+        username: this.props.user.username,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
       .catch(function(error) {
@@ -83,7 +86,7 @@ class Chat extends Component<ComponentProps, ComponentState> {
             </div>
             <div id="user-container">
               <div hidden id="user-pic" />
-              <div hidden id="user-name" />
+              <div id="user-name">{this.props.user.fullname}</div>
               <button
                 id="sign-out"
                 onClick={this.signOut}

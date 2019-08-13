@@ -4,7 +4,7 @@ import "firebase/firestore";
 export interface MessageProps {
   id: string;
   timestamp: firebase.firestore.Timestamp;
-  userName: string;
+  username: string;
   text: string;
   sentiment: number;
 }
@@ -32,7 +32,7 @@ class Message extends Component<MessageProps, MessageState> {
         </div>
         <div className="message">{this.props.text}</div>
         <div className="sentiment">{emotion}</div>
-        <div className="name">{this.props.userName}</div>
+        <div className="name">{this.props.username}</div>
       </div>
     );
   }

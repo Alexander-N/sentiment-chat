@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { AuthService } from "../Auth";
-import { User } from "firebase/app";
+import firebase from "firebase/app";
 
 import * as ROUTES from "../../constants/routes";
 import Chat from "../Chat";
@@ -10,6 +10,12 @@ import SignUp from "../SignUp";
 import SignIn from "../SignIn";
 
 interface ComponentProps {}
+
+interface User {
+  uid: string;
+  username: string;
+  fullname: string;
+}
 interface ComponentState {
   user: User | null;
   loading: boolean;
@@ -26,10 +32,22 @@ class App extends Component<ComponentProps, ComponentState> {
   }
 
   componentDidMount() {
-    AuthService.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.setState({ user });
+    AuthService.auth.onAuthStateChanged(async authUser => {
+      const usersRef = firebase.firestore().collection("users");
+      if (authUser) {
+        const userSnapshot = await usersRef
+          .where("uid", "==", authUser.uid)
+          .limit(1)
+          .get();
+
+        const users = userSnapshot.docs.map(doc => doc.data());
+        console.assert(users.length === 1);
+        const user = users[0];
+
+        this.setState({ user: user as User });
+        usersRef.doc(user.username).update({ loggedIn: true });
       } else {
+        usersRef.doc(this.state.user!.username).update({ loggedIn: false });
         this.setState({ user: null });
       }
       if (this.state.loading) {
@@ -45,7 +63,11 @@ class App extends Component<ComponentProps, ComponentState> {
         <Route
           path="/"
           render={() =>
-            this.state.user ? <Chat /> : <Redirect to={ROUTES.SIGN_IN} />
+            this.state.user ? (
+              <Chat user={this.state.user} />
+            ) : (
+              <Redirect to={ROUTES.SIGN_IN} />
+            )
           }
         />
 

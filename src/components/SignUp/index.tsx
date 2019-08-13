@@ -7,16 +7,16 @@ import { Auth, AuthService } from "../Auth";
 import { HOME } from "../../constants/routes";
 
 interface ComponentState {
-  userName: string;
-  fullName: string;
+  username: string;
+  fullname: string;
   email: string;
   passwordOne: string;
   passwordTwo: string;
   error: Error | null;
 }
 const INITIAL_STATE: ComponentState = {
-  userName: "",
-  fullName: "",
+  username: "",
+  fullname: "",
   email: "",
   passwordOne: "",
   passwordTwo: "",
@@ -33,10 +33,10 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
   }
 
   onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    const { userName, fullName, email, passwordOne } = this.state;
+    const { username, fullname, email, passwordOne } = this.state;
 
     this.firebase
-      .createUser(email, passwordOne, userName, fullName)
+      .createUser(email, passwordOne, username, fullname)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(HOME);
@@ -57,8 +57,8 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
       this.state.passwordOne !== this.state.passwordTwo ||
       this.state.passwordOne === "" ||
       this.state.email === "" ||
-      this.state.userName === "" ||
-      this.state.fullName === ""
+      this.state.username === "" ||
+      this.state.fullname === ""
     );
   };
 
@@ -68,15 +68,15 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
         <h1>Sign Up</h1>
         <form onSubmit={this.onSubmit}>
           <Input
-            name="userName"
-            value={this.state.userName}
+            name="username"
+            value={this.state.username}
             onChange={this.onChange}
             type="text"
             placeholder="Username"
           />
           <Input
-            name="fullName"
-            value={this.state.fullName}
+            name="fullname"
+            value={this.state.fullname}
             onChange={this.onChange}
             type="text"
             placeholder="Full Name"

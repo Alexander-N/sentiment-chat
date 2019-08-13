@@ -24,13 +24,13 @@ export class Auth {
   async createUser(
     email: string,
     password: string,
-    userName: string,
-    fullName: string
+    username: string,
+    fullname: string
   ) {
     const user = await firebase
       .firestore()
       .collection("users")
-      .doc(userName)
+      .doc(username)
       .get();
     if (user.exists) {
       return Promise.reject(new Error("Username already taken."));
@@ -42,8 +42,8 @@ export class Auth {
     await firebase
       .firestore()
       .collection("users")
-      .doc(userName)
-      .set({ userName: userName, fullName: fullName, uid: authUser.user!.uid });
+      .doc(username)
+      .set({ username: username, fullname: fullname, uid: authUser.user!.uid });
     return authUser;
   }
 
