@@ -4,12 +4,14 @@ import "firebase/firestore";
 
 import Message, { MessageProps } from "./Message";
 
+interface ComponentProps {}
 interface ComponentState {
   messages: { [key: string]: MessageProps };
   ownMessageText: string;
 }
-class Chat extends Component<any, ComponentState> {
-  constructor(props: any) {
+
+class Chat extends Component<ComponentProps, ComponentState> {
+  constructor(props: ComponentProps) {
     super(props);
     this.state = { messages: {}, ownMessageText: "" };
   }

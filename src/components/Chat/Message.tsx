@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
-interface MessageState {}
 export interface MessageProps {
   id: string;
   timestamp: firebase.firestore.Timestamp;
@@ -10,6 +9,7 @@ export interface MessageProps {
   text: string;
   sentiment: number;
 }
+interface MessageState {}
 
 class Message extends Component<MessageProps, MessageState> {
   render() {

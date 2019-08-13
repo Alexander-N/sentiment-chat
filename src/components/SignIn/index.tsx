@@ -12,7 +12,6 @@ interface ComponentState {
   password: string;
   error: Error | null;
 }
-
 const INITIAL_STATE: ComponentState = {
   email: "",
   password: "",

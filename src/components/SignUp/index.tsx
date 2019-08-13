@@ -14,7 +14,6 @@ interface ComponentState {
   passwordTwo: string;
   error: Error | null;
 }
-
 const INITIAL_STATE: ComponentState = {
   username: "",
   fullName: "",
