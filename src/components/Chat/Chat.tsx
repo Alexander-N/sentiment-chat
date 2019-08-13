@@ -1,8 +1,9 @@
-import React, { Component, ChangeEvent, FormEvent } from "react";
+import React, { Component, ChangeEvent, FormEvent, MouseEvent } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
 import Message, { MessageProps } from "./Message";
+import { FirebaseSingleton } from "../Firebase";
 
 interface ComponentProps {}
 interface ComponentState {
@@ -54,6 +55,10 @@ class Chat extends Component<ComponentProps, ComponentState> {
       });
   };
 
+  signOut = (_event: MouseEvent) => {
+    FirebaseSingleton.signOut();
+  };
+
   render() {
     const messages = [];
     for (const [key, messageProps] of Object.entries(this.state.messages)) {
@@ -75,7 +80,9 @@ class Chat extends Component<ComponentProps, ComponentState> {
               <div hidden id="user-name" />
               <button
                 id="sign-out"
-                className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white"
+                onClick={this.signOut}
+                className="mdl-button mdl-js-button mdl-js-ripple-effect
+                mdl-color-text--white"
               >
                 Sign-out
               </button>
