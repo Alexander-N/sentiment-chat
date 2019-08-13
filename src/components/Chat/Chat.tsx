@@ -60,9 +60,15 @@ class Chat extends Component<ComponentProps, ComponentState> {
   };
 
   render() {
-    const messages = [];
-    for (const [key, messageProps] of Object.entries(this.state.messages)) {
-      messages.push(<Message key={key} {...messageProps} />);
+    const messages = Object.values(this.state.messages);
+    messages.sort((a: any, b: any) =>
+      a.timestamp > b.timestamp ? 1 : b.timestamp > a.timestamp ? -1 : 0
+    );
+    const messageComponents = [];
+    for (const messageProps of messages) {
+      messageComponents.push(
+        <Message key={messageProps.id} {...messageProps} />
+      );
     }
 
     return (
@@ -100,7 +106,7 @@ class Chat extends Component<ComponentProps, ComponentState> {
               className="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop"
             >
               <div className="mdl-card__supporting-text mdl-color-text--grey-600">
-                <div id="messages">{messages}</div>
+                <div id="messages">{messageComponents}</div>
                 <form onSubmit={this.onSubmit} id="message-form" action="#">
                   <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
