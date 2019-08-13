@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import { FirebaseSingleton as firebase } from "../Firebase";
+import { AuthService } from "../Auth";
 import { User } from "firebase/app";
 
 import * as ROUTES from "../../constants/routes";
@@ -26,13 +26,12 @@ class App extends Component<ComponentProps, ComponentState> {
   }
 
   componentDidMount() {
-    firebase.auth.onAuthStateChanged(user => {
+    AuthService.auth.onAuthStateChanged(user => {
       if (user) {
         this.setState({ user });
       } else {
         this.setState({ user: null });
       }
-
       if (this.state.loading) {
         this.setState({ loading: false });
       }

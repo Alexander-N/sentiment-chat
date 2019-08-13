@@ -13,7 +13,7 @@ const config = {
   appId: "1:425854601759:web:dc5ed8c77326d4b6"
 };
 
-export class Firebase {
+export class Auth {
   auth: firebase.auth.Auth;
 
   constructor() {
@@ -56,4 +56,4 @@ export class Firebase {
   }
 }
 
-export const FirebaseSingleton = new Firebase();
+export const AuthService = new Auth();

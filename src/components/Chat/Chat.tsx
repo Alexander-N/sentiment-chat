@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 import Message, { MessageProps } from "./Message";
-import { FirebaseSingleton } from "../Firebase";
+import { AuthService } from "../Auth";
 
 interface ComponentProps {}
 interface ComponentState {
@@ -56,7 +56,7 @@ class Chat extends Component<ComponentProps, ComponentState> {
   };
 
   signOut = (_event: MouseEvent) => {
-    FirebaseSingleton.signOut();
+    AuthService.signOut();
   };
 
   render() {

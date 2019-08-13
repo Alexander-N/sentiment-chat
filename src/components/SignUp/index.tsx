@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 import React, { Component, ChangeEvent, FormEvent } from "react";
 
-import { Firebase, FirebaseSingleton } from "../Firebase";
+import { Auth, AuthService } from "../Auth";
 import { CHAT } from "../../constants/routes";
 
 interface ComponentState {
@@ -24,12 +24,12 @@ const INITIAL_STATE: ComponentState = {
 };
 
 class SignUp extends Component<RouteComponentProps, ComponentState> {
-  firebase: Firebase;
+  firebase: Auth;
 
   constructor(props: RouteComponentProps) {
     super(props);
     this.state = { ...INITIAL_STATE };
-    this.firebase = FirebaseSingleton;
+    this.firebase = AuthService;
   }
 
   onSubmit = (event: FormEvent<HTMLFormElement>) => {
