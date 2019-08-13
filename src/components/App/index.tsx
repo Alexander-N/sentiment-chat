@@ -45,15 +45,10 @@ class App extends Component<ComponentProps, ComponentState> {
         <Route
           path="/"
           render={() =>
-            this.state.user ? (
-              <Redirect to={ROUTES.CHAT} />
-            ) : (
-              <Redirect to={ROUTES.SIGN_IN} />
-            )
+            this.state.user ? <Chat /> : <Redirect to={ROUTES.SIGN_IN} />
           }
         />
 
-        <Route path={ROUTES.CHAT} component={Chat} />
         <Route path={ROUTES.SIGN_UP} component={SignUp} />
         <Route path={ROUTES.SIGN_IN} component={SignIn} />
       </Router>

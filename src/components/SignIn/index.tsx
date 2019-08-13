@@ -5,7 +5,7 @@ import React, { Component, ChangeEvent, FormEvent } from "react";
 
 import { Auth, AuthService } from "../Auth";
 
-import { CHAT, SIGN_UP } from "../../constants/routes";
+import { HOME, SIGN_UP } from "../../constants/routes";
 
 interface ComponentState {
   email: string;
@@ -33,7 +33,7 @@ class SignIn extends Component<RouteComponentProps, ComponentState> {
     this.firebase
       .signIn(email, password)
       .then(() => {
-        this.props.history.push(CHAT);
+        this.props.history.push(HOME);
       })
       .catch(error => {
         this.setState({ error });

@@ -4,7 +4,7 @@ import Input from "@material-ui/core/Input";
 import React, { Component, ChangeEvent, FormEvent } from "react";
 
 import { Auth, AuthService } from "../Auth";
-import { CHAT } from "../../constants/routes";
+import { HOME } from "../../constants/routes";
 
 interface ComponentState {
   userName: string;
@@ -39,7 +39,7 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
       .createUser(email, passwordOne, userName, fullName)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(CHAT);
+        this.props.history.push(HOME);
       })
       .catch(error => {
         this.setState({ error });
