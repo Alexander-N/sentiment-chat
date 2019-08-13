@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import { FirebaseSingleton as firebase } from "./components/Firebase";
+import { FirebaseSingleton as firebase } from "../Firebase";
 import { User } from "firebase/app";
 
-import * as ROUTES from "./constants/routes";
-import Chat from "./components/Chat";
-import SignUp from "./components/SignUp";
-import SignIn from "./components/SignIn";
+import * as ROUTES from "../../constants/routes";
+import Chat from "../Chat";
+import SignUp from "../SignUp";
+import SignIn from "../SignIn";
 
 interface ComponentProps {}
 interface ComponentState {
