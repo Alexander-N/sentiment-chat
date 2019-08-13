@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "sentiment-chat",
+    "live": "sentiment-chat"
+  }
+}
