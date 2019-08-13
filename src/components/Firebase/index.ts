@@ -13,7 +13,7 @@ const config = {
 };
 
 export class Firebase {
-  private auth: firebase.auth.Auth;
+  auth: firebase.auth.Auth;
 
   constructor() {
     app.initializeApp(config);
@@ -30,10 +30,6 @@ export class Firebase {
 
   signOut() {
     return this.auth.signOut();
-  }
-
-  isUserSignedIn() {
-    return !!this.auth.currentUser;
   }
 }
 
