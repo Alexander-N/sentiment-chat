@@ -7,7 +7,7 @@ import { Firebase, FirebaseSingleton } from "../Firebase";
 import { CHAT } from "../../constants/routes";
 
 interface ComponentState {
-  username: string;
+  userName: string;
   fullName: string;
   email: string;
   passwordOne: string;
@@ -15,7 +15,7 @@ interface ComponentState {
   error: Error | null;
 }
 const INITIAL_STATE: ComponentState = {
-  username: "",
+  userName: "",
   fullName: "",
   email: "",
   passwordOne: "",
@@ -33,10 +33,10 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
   }
 
   onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    const { username, fullName, email, passwordOne } = this.state;
+    const { userName, fullName, email, passwordOne } = this.state;
 
     this.firebase
-      .createUser(email, passwordOne)
+      .createUser(email, passwordOne, userName, fullName)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(CHAT);
@@ -57,7 +57,7 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
       this.state.passwordOne !== this.state.passwordTwo ||
       this.state.passwordOne === "" ||
       this.state.email === "" ||
-      this.state.username === "" ||
+      this.state.userName === "" ||
       this.state.fullName === ""
     );
   };
@@ -68,8 +68,8 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
         <h1>Sign Up</h1>
         <form onSubmit={this.onSubmit}>
           <Input
-            name="username"
-            value={this.state.username}
+            name="userName"
+            value={this.state.userName}
             onChange={this.onChange}
             type="text"
             placeholder="Username"

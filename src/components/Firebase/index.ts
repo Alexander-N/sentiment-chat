@@ -1,4 +1,5 @@
 import app from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/auth";
 
 const config = {
@@ -20,8 +21,30 @@ export class Firebase {
     this.auth = app.auth();
   }
 
-  createUser(email: string, password: string) {
-    return this.auth.createUserWithEmailAndPassword(email, password);
+  async createUser(
+    email: string,
+    password: string,
+    userName: string,
+    fullName: string
+  ) {
+    const user = await firebase
+      .firestore()
+      .collection("users")
+      .doc(userName)
+      .get();
+    if (user.exists) {
+      return Promise.reject(new Error("Username already taken."));
+    }
+    const authUser = await this.auth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(userName)
+      .set({ userName: userName, fullName: fullName, uid: authUser.user!.uid });
+    return authUser;
   }
 
   signIn(email: string, password: string) {
