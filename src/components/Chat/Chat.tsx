@@ -15,11 +15,13 @@ interface ComponentState {
 }
 
 class Chat extends Component<ComponentProps, ComponentState> {
+  messagesElement: HTMLElement | null;
+
   constructor(props: ComponentProps) {
     super(props);
     this.state = { messages: {}, ownMessageText: "" };
-  }
-  componentDidMount() {
+    this.messagesElement = null;
+
     const query = firebase
       .firestore()
       .collection("messages")
@@ -37,6 +39,9 @@ class Chat extends Component<ComponentProps, ComponentState> {
         }));
       }
     });
+  }
+  componentDidMount() {
+    this.messagesElement = document.getElementById("messages");
   }
 
   onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -57,6 +62,7 @@ class Chat extends Component<ComponentProps, ComponentState> {
       .catch(function(error) {
         console.error("Error writing new message to Firebase Database", error);
       });
+    this.messagesElement!.scrollTop = this.messagesElement!.scrollHeight;
   };
 
   signOut = (_event: MouseEvent) => {
