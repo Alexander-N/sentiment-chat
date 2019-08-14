@@ -5,6 +5,7 @@ import React, { Component, ChangeEvent, FormEvent } from "react";
 
 import { Auth, AuthService } from "../Auth";
 import { HOME } from "../../constants/routes";
+import "./Forms.css";
 
 interface ComponentState {
   username: string;
@@ -64,8 +65,7 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
 
   render() {
     return (
-      <div>
-        <h1>Sign Up</h1>
+      <div className="sign-up">
         <form onSubmit={this.onSubmit}>
           <Input
             name="username"

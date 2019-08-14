@@ -4,8 +4,8 @@ import Input from "@material-ui/core/Input";
 import React, { Component, ChangeEvent, FormEvent } from "react";
 
 import { Auth, AuthService } from "../Auth";
-
 import { HOME, SIGN_UP } from "../../constants/routes";
+import "./Forms.css";
 
 interface ComponentState {
   email: string;
@@ -50,7 +50,7 @@ class SignIn extends Component<RouteComponentProps, ComponentState> {
     const { email, password, error } = this.state;
 
     return (
-      <div>
+      <div className="sign-in">
         <form onSubmit={this.onSubmit}>
           <Input
             name="email"
@@ -69,10 +69,10 @@ class SignIn extends Component<RouteComponentProps, ComponentState> {
           <Button type="submit">Sign In</Button>
 
           {error && <p>{error.message}</p>}
+          <p>
+            Don't have an account? <Link to={SIGN_UP}>Sign Up</Link>
+          </p>
         </form>
-        <p>
-          Don't have an account? <Link to={SIGN_UP}>Sign Up</Link>
-        </p>
       </div>
     );
   }

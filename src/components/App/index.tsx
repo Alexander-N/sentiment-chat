@@ -6,8 +6,8 @@ import firebase from "firebase/app";
 
 import * as ROUTES from "../../constants/routes";
 import Chat from "../Chat";
-import SignUp from "../SignUp";
-import SignIn from "../SignIn";
+import SignUp from "../Forms/SignUp";
+import SignIn from "../Forms/SignIn";
 
 interface ComponentProps {}
 
