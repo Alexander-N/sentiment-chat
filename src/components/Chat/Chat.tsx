@@ -5,6 +5,7 @@ import "firebase/firestore";
 import { AuthService } from "../Auth";
 import LoggedInUsers from "../LoggedInUsers";
 import Message, { MessageProps } from "./Message";
+import "./Chat.css";
 
 interface ComponentProps {
   user: any;
