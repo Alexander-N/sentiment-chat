@@ -2,8 +2,9 @@ import React, { Component, ChangeEvent, FormEvent, MouseEvent } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
-import Message, { MessageProps } from "./Message";
 import { AuthService } from "../Auth";
+import LoggedInUsers from "../LoggedInUsers";
+import Message, { MessageProps } from "./Message";
 
 interface ComponentProps {
   user: any;
@@ -133,6 +134,8 @@ class Chat extends Component<ComponentProps, ComponentState> {
                 </form>
               </div>
             </div>
+
+            <LoggedInUsers />
 
             <div
               id="must-signin-snackbar"
