@@ -47,7 +47,9 @@ class App extends Component<ComponentProps, ComponentState> {
         this.setState({ user: user as User });
         usersRef.doc(user.username).update({ loggedIn: true });
       } else {
-        usersRef.doc(this.state.user!.username).update({ loggedIn: false });
+        if (this.state.user) {
+          usersRef.doc(this.state.user.username).update({ loggedIn: false });
+        }
         this.setState({ user: null });
       }
       if (this.state.loading) {
