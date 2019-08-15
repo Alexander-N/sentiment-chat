@@ -1,6 +1,8 @@
 import React, { Component, ChangeEvent, FormEvent } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
 
 import "./Chat.css";
 import { AuthService } from "../Auth";
@@ -48,6 +50,13 @@ class Chat extends Component<ComponentProps, ComponentState> {
 
   onChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({ ownMessageText: event.target.value });
+  };
+
+  addEmoji = (e: any) => {
+    const emoji = e.native;
+    this.setState({
+      ownMessageText: this.state.ownMessageText + emoji
+    });
   };
 
   onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -144,15 +153,9 @@ class Chat extends Component<ComponentProps, ComponentState> {
                 </form>
               </div>
             </div>
-
             <LoggedInUsers />
-
-            <div
-              id="must-signin-snackbar"
-              className="mdl-js-snackbar mdl-snackbar"
-            >
-              <div className="mdl-snackbar__text" />
-              <button className="mdl-snackbar__action" type="button" />
+            <div className="emoji-picker">
+              <Picker onSelect={this.addEmoji} />
             </div>
           </div>
         </main>

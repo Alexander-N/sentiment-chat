@@ -204,3 +204,6 @@ main,
   top: -1px;
   margin-right: 5px;
 }
+.emoji-picker {
+  margin: 8px;
+}
