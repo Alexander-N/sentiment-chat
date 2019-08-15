@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import { AuthService } from "../Auth";
 import firebase from "firebase/app";
 
 import * as ROUTES from "../../constants/routes";
+import { AuthService } from "../Auth";
 import Chat from "../Chat";
 import SignUp from "../Forms/SignUp";
 import SignIn from "../Forms/SignIn";

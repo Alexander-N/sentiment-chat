@@ -15,10 +15,12 @@ class LoggedInUsers extends Component<{}, ComponentState> {
   constructor(props: {}) {
     super(props);
     this.state = { ...INITIAL_STATE };
+
     const query = firebase
       .firestore()
       .collection("users")
       .where("loggedIn", "==", true);
+
     query.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         const changedUser = change.doc.data().username;

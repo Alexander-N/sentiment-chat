@@ -44,6 +44,7 @@ class Chat extends Component<ComponentProps, ComponentState> {
       }
     });
   }
+
   componentDidMount() {
     this.messagesElement = document.getElementById("messages");
   }

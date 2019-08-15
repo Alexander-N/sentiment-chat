@@ -10,6 +10,7 @@ export interface MessageProps {
 }
 
 const NEUTRAL_SCORE = 0.15;
+
 class Message extends Component<MessageProps, {}> {
   render() {
     let emotion;
