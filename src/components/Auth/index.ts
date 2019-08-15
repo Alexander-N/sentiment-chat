@@ -39,12 +39,19 @@ export class Auth {
       email,
       password
     );
-    await firebase
-      .firestore()
-      .collection("users")
-      .doc(username)
-      .set({ username: username, fullname: fullname, uid: authUser.user!.uid });
-    return authUser;
+    if (authUser.user) {
+      await firebase
+        .firestore()
+        .collection("users")
+        .doc(username)
+        .set({
+          username: username,
+          fullname: fullname,
+          uid: authUser.user.uid
+        });
+      return authUser;
+    }
+    console.error("No property `user` found on:", authUser);
   }
 
   signIn(email: string, password: string) {

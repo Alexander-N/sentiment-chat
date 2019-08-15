@@ -1,14 +1,15 @@
-import React, { Component, ChangeEvent, FormEvent, MouseEvent } from "react";
+import React, { Component, ChangeEvent, FormEvent } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
+import "./Chat.css";
 import { AuthService } from "../Auth";
+import { User } from "../App";
 import LoggedInUsers from "../LoggedInUsers";
 import Message, { MessageProps } from "./Message";
-import "./Chat.css";
 
 interface ComponentProps {
-  user: any;
+  user: User;
 }
 interface ComponentState {
   messages: { [key: string]: MessageProps };
@@ -30,7 +31,7 @@ class Chat extends Component<ComponentProps, ComponentState> {
       .limit(12);
 
     query.onSnapshot(snapshot => {
-      for (let change of snapshot.docChanges()) {
+      for (const change of snapshot.docChanges()) {
         const message = change.doc.data();
         this.setState(prevState => ({
           messages: {
@@ -63,10 +64,12 @@ class Chat extends Component<ComponentProps, ComponentState> {
       .catch(function(error) {
         console.error("Error writing new message to Firebase Database", error);
       });
-    this.messagesElement!.scrollTop = this.messagesElement!.scrollHeight;
+    if (this.messagesElement) {
+      this.messagesElement.scrollTop = this.messagesElement.scrollHeight;
+    }
   };
 
-  signOut = (_event: MouseEvent) => {
+  signOut = () => {
     AuthService.signOut();
   };
 

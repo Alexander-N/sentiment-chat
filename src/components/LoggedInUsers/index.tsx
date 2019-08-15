@@ -4,7 +4,6 @@ import "firebase/firestore";
 
 import "./LoggedInUsers.css";
 
-interface ComponentProps {}
 interface ComponentState {
   loggedInUsernames: Array<string>;
 }
@@ -12,8 +11,8 @@ const INITIAL_STATE: ComponentState = {
   loggedInUsernames: []
 };
 
-class LoggedInUsers extends Component<ComponentProps, ComponentState> {
-  constructor(props: ComponentProps) {
+class LoggedInUsers extends Component<{}, ComponentState> {
+  constructor(props: {}) {
     super(props);
     this.state = { ...INITIAL_STATE };
     const query = firebase

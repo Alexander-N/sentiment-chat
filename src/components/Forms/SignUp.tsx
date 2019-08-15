@@ -38,7 +38,7 @@ class SignUp extends Component<RouteComponentProps, ComponentState> {
 
     this.firebase
       .createUser(email, passwordOne, username, fullname)
-      .then(authUser => {
+      .then(() => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(HOME);
       })

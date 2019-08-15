@@ -8,10 +8,9 @@ export interface MessageProps {
   text: string;
   sentiment: number;
 }
-interface MessageState {}
 
 const NEUTRAL_SCORE = 0.15;
-class Message extends Component<MessageProps, MessageState> {
+class Message extends Component<MessageProps, {}> {
   render() {
     let emotion;
     const sentimentScore = this.props.sentiment;

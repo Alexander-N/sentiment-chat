@@ -9,9 +9,7 @@ import Chat from "../Chat";
 import SignUp from "../Forms/SignUp";
 import SignIn from "../Forms/SignIn";
 
-interface ComponentProps {}
-
-interface User {
+export interface User {
   uid: string;
   username: string;
   fullname: string;
@@ -25,8 +23,8 @@ const INITIAL_STATE: ComponentState = {
   loading: true
 };
 
-class App extends Component<ComponentProps, ComponentState> {
-  constructor(props: ComponentProps) {
+class App extends Component<{}, ComponentState> {
+  constructor(props: {}) {
     super(props);
     this.state = { ...INITIAL_STATE };
   }

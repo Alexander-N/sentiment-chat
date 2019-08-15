@@ -70,7 +70,7 @@ class SignIn extends Component<RouteComponentProps, ComponentState> {
 
           {error && <p>{error.message}</p>}
           <p>
-            Don't have an account? <Link to={SIGN_UP}>Sign Up</Link>
+            Don&apos;t have an account? <Link to={SIGN_UP}>Sign Up</Link>
           </p>
         </form>
       </div>
